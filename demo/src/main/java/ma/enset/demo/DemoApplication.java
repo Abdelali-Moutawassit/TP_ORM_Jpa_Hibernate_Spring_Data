@@ -21,9 +21,9 @@ public class DemoApplication implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 
-		patientRepository.save(new Patient(null ,"Hassan Essali",new Date(95, 0, 20),true,30));
-		patientRepository.save(new Patient(null ,"Adil Nami",new Date(96, 2, 24),true,90));
-		patientRepository.save(new Patient(null ,"Saad Layoubi",new Date(93, 5, 11),false,100));
+		//patientRepository.save(new Patient(null ,"Hassan Essali",new Date(95, 0, 20),true,30));
+		//patientRepository.save(new Patient(null ,"Adil Nami",new Date(96, 2, 24),true,90));
+		//patientRepository.save(new Patient(null ,"Saad Layoubi",new Date(93, 5, 11),false,100));
 		List<Patient> patients = patientRepository.findAll();
 		patients.forEach(patient -> {
 			System.out.println(patient.toString());
@@ -36,5 +36,25 @@ public class DemoApplication implements CommandLineRunner {
 		System.out.println(patient.isMalade());
 		System.out.println(patient.getScore());
 		System.out.println("************************");
+		System.out.println("-------------------------------------------");
+		List<Patient> patientList = patientRepository.findByNameContains("s");
+		patientList.forEach(p-> {
+           System.out.println(p.toString());
+		});
+		System.out.println("-------------------------------------------");
+		List<Patient> patientList2 = patientRepository.search("%s%");
+		patientList2.forEach(p-> {
+			System.out.println(p.toString());
+		});
+		System.out.println("-------------------------------------------");
+		List<Patient> patientList3 = patientRepository.findByScoreGreaterThan(50);
+		patientList3.forEach(p-> {
+			System.out.println(p.toString());
+		});
+		System.out.println("-------------------------------------------");
+		List<Patient> patientList4 = patientRepository.searchByScore(50);
+		patientList4.forEach(p-> {
+			System.out.println(p.toString());
+		});
 	}
 }
